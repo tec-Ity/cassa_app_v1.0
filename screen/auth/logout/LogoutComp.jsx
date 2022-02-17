@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-native";
 // import { fetchLogout } from "../../../redux/authSlice";
 import { loginUrl } from "../../../config/general/router/routerConf";
+import { clearAllData } from "../../../redux/AsyncStorage";
 export default function LogoutComp() {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function LogoutComp() {
     // dispatch(fetchLogout());
     // return () => {};
 
-    AsyncStorage.clear();
+    clearAllData();
     window.location.replace(loginUrl);
   }, []);
 

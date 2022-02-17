@@ -22,6 +22,19 @@ export default function Account() {
         }}
         onPress={() => navigate("/B/dashboard")}
       />
+      <Button
+        title="登出"
+        containerStyle={{
+          width: 200,
+          marginHorizontal: 50,
+          marginVertical: 10,
+        }}
+        buttonStyle={{
+          backgroundColor: "rgba(78, 116, 289, 1)",
+          borderRadius: 3,
+        }}
+        onPress={() => navigate("/logout")}
+      />
     </View>
   );
 }
