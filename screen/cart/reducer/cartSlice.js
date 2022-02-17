@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   createAsyncThunk,
   createSlice,
@@ -8,13 +7,10 @@ import {
 import { fetch_Prom } from "../../../api/api";
 import { fetchObj as fetchObjOrder } from "../../../config/module/order/orderConf";
 import { fetchObjs as fetchObjsPaidTypes } from "../../../config/module/setting/payment/type/paidTypeConf";
-AsyncStorage.setItem("carts", "xxx");
-console.log("cart", AsyncStorage.getItem("carts"));
+import { getData } from "../../../redux/AsyncStorage";
 
 const initialState = {
-  // carts: AsyncStorage.getItem("carts")
-  //   ? JSON.parse(AsyncStorage.getItem("carts"))
-  //   : [],
+  carts: [],
   curCart: {},
   cartPostStatus: "idle",
   postedOrder: {},
@@ -288,6 +284,7 @@ export const cartSlice = createSlice({
     },
     initCart: {
       reducer(state, action) {
+        if (state.curCart) return;
         console.log("init");
         const { cartId, crt_at, type } = action.payload;
         const cartTemp = {
@@ -313,10 +310,10 @@ export const cartSlice = createSlice({
     cartClientPost: (state, action) => {
       const { subject, type = -1 } = action.payload;
       if (subject) state.curCart.subject = subject;
-      if (type !== 1)
-        state.carts.forEach((cart) => {
-          if (cart.cartId === state.curCart.cartId) cart = state.curCart;
-        });
+      // if (type !== 1)
+      //   state.carts.forEach((cart) => {
+      //     if (cart.cartId === state.curCart.cartId) cart = state.curCart;
+      //   });
     },
     cartItemPost: {
       reducer(state, action) {
@@ -379,13 +376,13 @@ export const cartSlice = createSlice({
           cartTemp.totItem += 1;
           cartTemp.upd_at = upd_at;
           //update carts
-          if (type !== 1)
-            for (let i = 0; i < state.carts.length; i++) {
-              let cart = state.carts[i];
-              if (cart.cartId === cartTemp.cartId) {
-                state.carts[i] = cartTemp;
-              }
-            }
+          // if (type !== 1)
+          //   for (let i = 0; i < state.carts.length; i++) {
+          //     let cart = state.carts[i];
+          //     if (cart.cartId === cartTemp.cartId) {
+          //       state.carts[i] = cartTemp;
+          //     }
+          //   }
         } catch (err) {
           console.log(err);
         }
@@ -446,11 +443,11 @@ export const cartSlice = createSlice({
           }
         }
         //update carts
-        if (type !== 1)
-          for (let i = 0; i < state.carts.length; i++) {
-            if (state.carts[i].cartId === state.curCart.cartId)
-              state.carts[i] = state.curCart;
-          }
+        // if (type !== 1)
+        //   for (let i = 0; i < state.carts.length; i++) {
+        //     if (state.carts[i].cartId === state.curCart.cartId)
+        //       state.carts[i] = state.curCart;
+        //   }
       } catch (err) {
         console.log(err);
       }
@@ -491,19 +488,19 @@ export const cartSlice = createSlice({
           state.curCart.OrderProds.splice(delProd, 1);
         }
         //update carts or del cart from cart
-        if (type !== 1)
-          for (let i = 0; i < state.carts.length; i++) {
-            const cart = state.carts[i];
-            if (cart.cartId === state.curCart.cartId) {
-              // if (cart.OrderProds.length === 0) {
-              //   state.curCart = {};
-              //   delCart = i;
-              // } else {
-              state.carts[i] = state.curCart;
-              // }
-              break;
-            }
-          }
+        // if (type !== 1)
+        //   for (let i = 0; i < state.carts.length; i++) {
+        //     const cart = state.carts[i];
+        //     if (cart.cartId === state.curCart.cartId) {
+        //       // if (cart.OrderProds.length === 0) {
+        //       //   state.curCart = {};
+        //       //   delCart = i;
+        //       // } else {
+        //       state.carts[i] = state.curCart;
+        //       // }
+        //       break;
+        //     }
+        //   }
         // if (delCart !== -1) {
         //   state.carts.splice(delCart, 1);
         // }

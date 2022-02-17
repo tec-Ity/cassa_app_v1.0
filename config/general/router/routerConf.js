@@ -9,37 +9,88 @@
 // import SettingPage from "../../../view/setting/SettingPage";
 // import CoinPage from "../../../view/setting/coin/coinPage.jsx";
 // import PaidTypePage from "../../../view/setting/paidType/PaidTypePage.jsx";
-import { Text } from "react-native";
 import LogoutComp from "../../../screen/auth/logout/LogoutComp.jsx";
+import CartPage from "../../../screen/cart/CartPage.jsx";
+import { Text } from "react-native-elements";
+
+const loginUrl = "/login";
+const logoutUrl = "/logout";
+const noAuthUrl = "/noAuth";
+
+const frontSettingRoutes = [
+  {
+    path: "/",
+    // element: <SettingPage type={1} />,
+    element: <Text>screen</Text>,
+    role: ["worker", "boss"],
+  },
+  { path: logoutUrl, element: <LogoutComp />, role: ["worker", "boss"] },
+];
+
+const backSettingRoutes = [
+  {
+    path: "/",
+    // element: <SettingPage type={-1} />,
+    element: <Text>screen</Text>,
+
+    role: ["boss"],
+  },
+  {
+    path: "/coins",
+    // element: <CoinPage />,
+    element: <Text>screen</Text>,
+
+    role: ["boss"],
+  },
+  {
+    path: "/paidTypes",
+
+    element: <Text>screen</Text>,
+    // element: <PaidTypePage />,
+    role: ["boss"],
+  },
+  { path: logoutUrl, element: <LogoutComp />, role: ["worker", "boss"] },
+];
+
+const cartRoutes = [
+  {
+    path: "/",
+    element: <CartPage />,
+    role: ["worker", "boss"],
+  },
+];
 const frontRoutes = {
   path: "/F",
   routes: [
     {
       path: "/cart",
-      element: <Text>dashboard</Text>,
-      // element: <CartPage />,
+      subRoutes: cartRoutes,
       role: ["worker", "boss"],
     },
-    {
-      path: "/orders",
-      element: <Text>dashboard</Text>,
-      // element: <OrderList section={1} />,
-      role: ["worker", "boss"],
-    },
+    // {
+    //   path: "/cart",
+    //   element: <Text>screen</Text>,
+    //   // element: <CartPage />,
+    //   role: ["worker", "boss"],
+    // },
+    // {
+    //   path: "/orders",
+    //   element: <Text>screen</Text>,
+    //   // element: <OrderList section={1} />,
+    //   role: ["worker", "boss"],
+    // },
 
-    {
-      path: "/clients",
-      element: <Text>dashboard</Text>,
-      // element: <ClientList section={1} />,
-      role: ["worker", "boss"],
-    },
-    {
-      path: "/settings",
-      hasSubRoutes: true,
-      element: <Text>dashboard</Text>,
-      // element: <SettingPage type={1} />,
-      role: ["worker", "boss"],
-    },
+    // {
+    //   path: "/clients",
+    //   element: <Text>screen</Text>,
+    //   // element: <ClientList section={1} />,
+    //   role: ["worker", "boss"],
+    // },
+    // {
+    //   path: "/settings",
+    //   subRoutes: frontSettingRoutes,
+    //   role: ["worker", "boss"],
+    // },
   ],
 };
 
@@ -49,26 +100,26 @@ const backRoutes = {
     {
       path: "/dashboard",
       element: <Text>dashboard</Text>,
-      // element: <Text>dashboard</Text>,
+      // element: <>dashboard</>,
       role: ["worker", "boss"],
     },
     {
       path: "/purchase",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <CartPage type={1} />,
       role: ["worker", "boss"],
     },
     //order
     {
       path: "/orders",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <OrderList seciton={-1} />,
       role: ["worker", "boss"],
     },
 
     {
       path: "/purOrders",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <OrderList type={1} />,
       role: ["worker", "boss"],
     },
@@ -76,75 +127,50 @@ const backRoutes = {
     //prod
     {
       path: "/prods",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <ProdList />,
       role: ["boss"],
     },
     {
       path: "/prod/:_id",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <ProdDetail />,
       role: ["boss"],
     },
     //client
     {
       path: "/clients",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <ClientList section={-1} />,
       role: ["boss"],
     },
     //user
     {
       path: "/users",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <UserList />,
       role: ["boss"],
     },
     //shop
     {
       path: "/shops",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <ShopList />,
       role: ["boss"],
     },
     {
       path: "/suppliers",
-      element: <Text>dashboard</Text>,
+      element: <Text>screen</Text>,
       // element: <SupList />,
       role: ["boss"],
     },
     {
       path: "/settings",
-      hasSubRoutes: true,
-      element: <Text>dashboard</Text>,
-      // element: <SettingPage type={-1} />,
+      subRoutes: backSettingRoutes,
       role: ["boss"],
     },
   ],
 };
-const loginUrl = "/login";
-const logoutUrl = "/logout";
-const noAuthUrl = "/noAuth";
-
-const frontSettingRoutes = [
-  { path: logoutUrl, element: <LogoutComp />, role: ["worker", "boss"] },
-];
-
-const backSettingRoutes = [
-  {
-    path: "/coins",
-    element: <Text>dashboard</Text>,
-    // element: <CoinPage />,
-    role: ["boss"],
-  },
-  {
-    path: "/paidTypes",
-    element: <Text>dashboard</Text>,
-    // element: <PaidTypePage />,
-    role: ["boss"],
-  },
-  { path: logoutUrl, element: <LogoutComp />, role: ["worker", "boss"] },
-];
 
 const settingRoutes = { frontSettingRoutes, backSettingRoutes };
 
@@ -155,33 +181,33 @@ export { settingRoutes, loginUrl, logoutUrl, noAuthUrl };
 // const routes = [
 //   // {
 //   //   path: "/order/:_id",
-//   //   element: <Text>cart</Text>,
+//   //   element: <>cart</>,
 //   //   role: ["worker", "boss"],
 //   // },
 //   //
 //   // {
 //   //   path: "/purOrder/:_id",
-//   //   element: <Text>cart</Text>,
+//   //   element: <>cart</>,
 //   //   role: ["worker", "boss"],
 //   // },
 //   // {
 //   //   path: "/client/:_id",
-//   //   element: <Text>client xxxx</Text>,
+//   //   element: <>client xxxx</>,
 //   //   role: ["boss"],
 //   // },
 //   // {
 //   //   path: "/user/:_id",
-//   //   element: <Text>user xxxx</Text>,
+//   //   element: <>user xxxx</>,
 //   //   role: ["boss"],
 //   // },
 //   // {
 //   //   path: "/shop/:_id",
-//   //   element: <Text>user xxxx</Text>,
+//   //   element: <>user xxxx</>,
 //   //   role: ["boss"],
 //   // },
 //   // {
 //   //   path: "/supplier/:_id",
-//   //   element: <Text>user xxxx</Text>,
+//   //   element: <>user xxxx</>,
 //   //   role: ["boss"],
 //   // },
 // ];

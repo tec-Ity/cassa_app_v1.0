@@ -1,27 +1,61 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const loadState = () => {
-  // We need the try block because user may not permit our accessing localStorage.
+export const storeData = async (key, value) => {
   try {
-    const serializedState = AsyncStorage.getItem("state");
-    if (serializedState === null) {
-      // The key 'state' does not exist.
-      return undefined; // Let our reducer initialize the app.
-    }
-
-    return JSON.parse(serializedState);
-  } catch (error) {
-    //console.log(error);
-    return undefined; // Let our reducer initialize the app.
+    let val = typeof value === "string" ? value : JSON.stringify(value);
+    await AsyncStorage.setItem(key, val);
+  } catch (e) {
+    // saving error
+    console.log(e);
   }
 };
 
-export const saveState = (state) => {
+export const getData = async (key) => {
   try {
-    // Serialize the state. Redux store is recommended to be serializable.
-    const serializedState = JSON.stringify(state);
-    AsyncStorage.setItem("carts", serializedState);
-  } catch (error) {
-    //console.log(error);
+    const value = await AsyncStorage.getItem(key);
+    if (value) {
+      // value previously stored
+      return isJSON(value) ? JSON.parse(value) : value;
+    } else return null;
+  } catch (e) {
+    // error reading value
+    console.log(e);
+  }
+};
+
+function isJSON(value) {
+  try {
+    const jsonValue = JSON.parse(value);
+    return typeof jsonValue === "object";
+  } catch (e) {
+    return false;
+  }
+}
+
+export const mergeData = async (key, value) => {
+  try {
+    let val = typeof value === "string" ? value : JSON.stringify(value);
+    await AsyncStorage.mergeItem(key, val);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const removeData = async (key) => {
+  try {
+    console.log("remove Item");
+    await AsyncStorage.removeItem(key);
+  } catch (e) {
+    // remove error
+    console.log(e);
+  }
+};
+
+export const clearAllData = async () => {
+  try {
+    await AsyncStorage.clear();
+  } catch (e) {
+    // clear error
+    console.log(e);
   }
 };

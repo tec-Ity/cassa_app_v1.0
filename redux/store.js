@@ -6,7 +6,7 @@ import prodStorageReducer from "../screen/_prodStorage/reducer/ProdStorageSlice"
 
 import {
   // loadState,
-  saveState,
+  storeData,
 } from "./AsyncStorage";
 
 import throttle from "lodash/throttle";
@@ -23,6 +23,6 @@ store.subscribe(
   throttle(() => {
     const { carts } = store.getState().cart;
     // //console.log("store", carts);
-    saveState(carts);
+    storeData("carts", carts);
   }, 1000)
 );

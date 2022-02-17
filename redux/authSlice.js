@@ -1,15 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { axios_Prom, fetch_Prom } from "../api/api";
-
+import { getData, storeData } from "./AsyncStorage";
 const initialState = {
-  isLogin: Boolean(AsyncStorage.getItem("accessToken")),
+  isLogin: false,
   loginStatus: "idle",
   logoutStatus: "idle",
+  getLoginStatus: "idle",
   errMsg: "",
   showLoginModal: false,
   userInfo: {},
 };
+
+export const getLoginStatusFromStorage = createAsyncThunk(
+  "auth/getLoginStatusFromStorage",
+  async (foo = true) => {
+    const accessToken = await getData("accessToken");
+    console.log(accessToken);
+    if (accessToken) return true;
+    else return false;
+  }
+);
 
 export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
@@ -17,8 +27,8 @@ export const fetchLogin = createAsyncThunk(
     const loginRes = await axios_Prom("/login", "POST", { system });
     console.log(loginRes);
     if (loginRes.status === 200) {
-      AsyncStorage.setItem("refreshToken", loginRes.data.refreshToken);
-      AsyncStorage.setItem("accessToken", loginRes.data.accessToken);
+      await storeData("refreshToken", loginRes.data.refreshToken);
+      await storeData("accessToken", loginRes.data.accessToken);
       return {
         userInfo: loginRes.data.payload,
       };
@@ -64,6 +74,18 @@ export const authSlice = createSlice({
     },
     [fetchLogin.rejected]: (state, action) => {
       state.loginStatus = "error";
+      state.errMsg = action.payload;
+    },
+    [getLoginStatusFromStorage.pending]: (state) => {
+      state.getLoginStatus = "loading";
+    },
+    [getLoginStatusFromStorage.fulfilled]: (state, action) => {
+      state.getLoginStatus = "succeed";
+      state.isLogin = action.payload;
+      // state.isLogin = true;
+    },
+    [getLoginStatusFromStorage.rejected]: (state, action) => {
+      state.getLoginStatus = "error";
       state.errMsg = action.payload;
     },
     // [fetchLogout.pending]: (state) => {

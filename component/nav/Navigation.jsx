@@ -9,7 +9,15 @@ import navigations, {
   loginNav,
   logoutNav,
 } from "../../config/general/navi/naviConf";
-
+//RNE
+import { Header, Icon } from "react-native-elements";
+import {
+  ScrollView,
+  TouchableOpacity,
+  DrawerLayout,
+} from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native-web";
 // import { ReactComponent as Logo } from "../../assets/logo/hfclogo.svg";
 
 const curRole = "boss";
@@ -28,24 +36,26 @@ const navis = {
   },
 };
 
-export default function Navigation() {
+export default function Navigation({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const isLogin = useSelector((state) => state.auth.isLogin);
   //state
   const [section, setSection] = React.useState("front");
   const navi = navis[section];
-  const curRoute = location?.pathname?.split("/")[2];
 
+  console.log(location?.pathname);
+  const curBase = location?.pathname?.split("/")[1];
+  const curRoute = location?.pathname?.split("/")[2];
   //redirect to default index when change front or back
   React.useEffect(() => {
     const { navs } = navi;
-    navigate(navs.base + navs.defaultLink);
+    isLogin && navigate(navs.base + navs.defaultLink);
     //navigate change everytime, cannot be a dependecy
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navi]);
+  }, [navi, isLogin]);
 
-  return (
+  return "/" + curBase === navigations.backNav.base ? (
     <UI
       isLogin={isLogin}
       navi={navi}
@@ -53,7 +63,12 @@ export default function Navigation() {
         section === "front" ? setSection("back") : setSection("front")
       }
       curRoute={curRoute}
+      children={children}
     />
+  ) : (
+    <SafeAreaView style={{ height: "100%", width: "100%" }}>
+      {children}
+    </SafeAreaView>
   );
 }
 
@@ -62,8 +77,27 @@ const AuthNav = ({ children, userRoles, curRole, isLogin }) => {
   else return <></>;
 };
 
-const UI = ({ isLogin, navi, toggleSection, curRoute }) => {
-  return <></>;
+const UI = ({ isLogin, navi, toggleSection, curRoute, children }) => {
+  return (
+    <View>
+      <Header
+        style={{ width: "100%" }}
+        leftComponent={{
+          icon: "menu",
+          color: "#fff",
+        }}
+        rightComponent={{
+          icon: "person",
+          color: "#fff",
+        }}
+        centerComponent={{
+          text: "管理",
+          style: { color: "white", fontSize: 22, fontWeight: "bold" },
+        }}
+      />
+      <ScrollView>{children}</ScrollView>
+    </View>
+  );
 };
 
 const NavItem = ({ nav, base, selected }) => {

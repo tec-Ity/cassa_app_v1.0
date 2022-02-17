@@ -1,7 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import api_DNS from "./_dns";
-
+import { storeData, getData, removeData } from "../redux/AsyncStorage";
 const api_version = "/api/b1";
 
 export const get_DNS = () => api_DNS;
@@ -12,7 +11,7 @@ const fetchProm = (api, method, bodyObj) => {
       if (!api) return resolve({ status: 400, message: "api 不能为空" });
       //   console.log(api, method, bodyObj);
       const api_server = api_DNS + api_version + api;
-      const token = AsyncStorage.getItem("accessToken");
+      const token = getData("accessToken");
       const fetchObj = {
         method,
         headers: {
@@ -71,7 +70,7 @@ export const axiosProm = async (api, method, formData) => {
       // console.log("axiosProm");
       if (!api) return resolve({ status: 400, message: "api 不能为空" });
       const api_server = api_DNS + api_version + api;
-      const token = AsyncStorage.getItem("accessToken");
+      const token = getData("accessToken");
       let result = null;
       if (method === "GET") {
         result = await axios.get(api_server, {
@@ -147,7 +146,7 @@ export const axios_Prom = async (api, method = "GET", formData) => {
 export const refreshToken_Prom = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const token = AsyncStorage.getItem("refreshToken");
+      const token = getData("refreshToken");
       const api = api_DNS + api_version + "/refreshtoken";
       const resPromise = await fetch(api, {
         headers: {
@@ -158,10 +157,10 @@ export const refreshToken_Prom = () => {
       });
       const result = await resPromise.json();
       if (result.status === 200) {
-        AsyncStorage.setItem("accessToken", result.data?.accessToken);
-        AsyncStorage.setItem("refreshToken", result.data?.refreshToken);
+        sotreData("accessToken", result.data?.accessToken);
+        storeData("refreshToken", result.data?.refreshToken);
       } else {
-        AsyncStorage.removeItem("refreshToken");
+        removeData("refreshToken");
         // window.location.reload();
       }
       resolve(result);

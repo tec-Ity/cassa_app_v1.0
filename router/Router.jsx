@@ -1,3 +1,4 @@
+import { Text } from "react-native-elements";
 import { Routes, Route, Navigate } from "react-router-native";
 import routes, {
   loginUrl,
@@ -12,9 +13,9 @@ export default function Router() {
   return (
     <Routes>
       <Route path={loginUrl} element={<Login />} />
-      {Object.keys(routes).map((key) => {
+      {Object.keys(routes)?.map((key) => {
         const subRoutes = routes[key];
-        console.log(subRoutes.path);
+        // console.log(subRoutes);
         return (
           <Route
             key={subRoutes.path}
@@ -22,14 +23,31 @@ export default function Router() {
             element={
               <Routes>
                 {subRoutes?.routes?.map((route) => {
+                  // console.log(route.path + route.subRoutes);
                   return (
                     <Route
-                      key={route.path}
-                      path={route.path + (route.hasSubRoutes ? "/*" : "")}
+                      key={subRoutes.path + route.path}
+                      path={route.path + (route.subRoutes ? "/*" : "")}
                       element={
-                        <AuthRoute userRoles={route.role}>
-                          {route.element}
-                        </AuthRoute>
+                        route.subRoutes ? (
+                          <Routes>
+                            {route.subRoutes.map((subRoute) => (
+                              <Route
+                                key={subRoute.path + route.path}
+                                path={subRoute.path}
+                                element={
+                                  <AuthRoute userRoles={subRoute.role}>
+                                    {subRoute.element}
+                                  </AuthRoute>
+                                }
+                              />
+                            ))}
+                          </Routes>
+                        ) : (
+                          <AuthRoute userRoles={route.role}>
+                            {route.element}
+                          </AuthRoute>
+                        )
                       }
                     />
                   );
@@ -39,10 +57,10 @@ export default function Router() {
           />
         );
       })}
-      <Route path={noAuthUrl} element={<>no permission</>} />
+      <Route path={noAuthUrl} element={<Text>no permission</Text>} />
       <Route path={logoutUrl} element={<LogoutComp />} />
-      <Route path="/" element={<Navigate to="/F/orders" />} />
-      <Route path="*" element={<>not found</>} />
+      <Route path="/" element={<Navigate to="/F/cart" />} />
+      <Route path="*" element={<Text>not found</Text>} />
     </Routes>
   );
 }
