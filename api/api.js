@@ -11,7 +11,7 @@ const fetchProm = (api, method, bodyObj) => {
       if (!api) return resolve({ status: 400, message: "api 不能为空" });
       //   console.log(api, method, bodyObj);
       const api_server = api_DNS + api_version + api;
-      const token = getData("accessToken");
+      const token = await getData("accessToken");
       const fetchObj = {
         method,
         headers: {
@@ -70,7 +70,7 @@ export const axiosProm = async (api, method, formData) => {
       // console.log("axiosProm");
       if (!api) return resolve({ status: 400, message: "api 不能为空" });
       const api_server = api_DNS + api_version + api;
-      const token = getData("accessToken");
+      const token = await getData("accessToken");
       let result = null;
       if (method === "GET") {
         result = await axios.get(api_server, {
@@ -146,7 +146,7 @@ export const axios_Prom = async (api, method = "GET", formData) => {
 export const refreshToken_Prom = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const token = getData("refreshToken");
+      const token = await getData("refreshToken");
       const api = api_DNS + api_version + "/refreshtoken";
       const resPromise = await fetch(api, {
         headers: {
@@ -156,9 +156,10 @@ export const refreshToken_Prom = () => {
         method: "GET",
       });
       const result = await resPromise.json();
+      console.log(result);
       if (result.status === 200) {
-        sotreData("accessToken", result.data?.accessToken);
-        storeData("refreshToken", result.data?.refreshToken);
+        await storeData("accessToken", result.data?.accessToken);
+        await storeData("refreshToken", result.data?.refreshToken);
       } else {
         removeData("refreshToken");
         // window.location.reload();

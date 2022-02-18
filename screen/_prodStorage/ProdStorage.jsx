@@ -7,14 +7,23 @@ export default function ProdStorage() {
   const dispatch = useDispatch();
   const getStatus = useSelector((state) => state.prodStorage.getStatus);
   const isLogin = useSelector((state) => state.auth.isLogin);
-  console.log(isLogin);
+  // console.log(isLogin);
   useEffect(() => {
     isLogin && dispatch(fetchProds());
   }, [dispatch, isLogin]);
 
   return (
-    <Overlay isVisible={getStatus === "loading"}>
-      <FAB loading visible />
+    <Overlay
+      isVisible={getStatus === "loading"}
+      // isVisible
+      overlayStyle={{ backgroundColor: "transparent", boxShadow: "none" }}
+    >
+      <FAB
+        loading
+        visible
+        color="rgba(78, 116, 289, 1)"
+        // style={{ height: 80, width: 80 }}
+      />
     </Overlay>
   );
 }
