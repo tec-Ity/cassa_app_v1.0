@@ -1,22 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useMemo, Suspense } from "react";
 import { View } from "react-native";
 import { Tab, Text, TabView } from "react-native-elements";
-import Account from "./account/Account";
 import ProdStorage from "../_prodStorage/ProdStorage.jsx";
-import ProdList from "./prodlist/ProdList.jsx";
+// import ProdList from "./prodlist/ProdList.jsx";
+// import CartList from "./cartList/CartList";
+// import OrderList from "./orderLIst/OrderList";
+// import Account from "./account/Account";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   cartClientPost,
-  cartItemDelete,
-  cartItemPost,
-  cartItemPut,
-  // cartClientPost,
   initCart,
   resetPayment,
   fetchCartOrderPost,
   fetchPaymentMethods,
-  selectSkuQuantity,
   openMultiSkuModal,
 } from "./reducer/cartSlice";
 
@@ -43,17 +40,14 @@ const tabItemObjs = [
   },
 ];
 
-const tabViewObjs = [
-  { component: <ProdList /> },
-  { component: <Text h1>cart</Text> },
-  { component: <Text h1>list</Text> },
-  { component: <Account /> },
-];
 export default function CartPage({ type = 1 }) {
   const [index, setIndex] = React.useState(0);
   const dispatch = useDispatch();
   const curCart = useSelector((state) => state.cart.curCart);
-
+  const ProdList = React.lazy(() => import("./prodlist/ProdList.jsx"));
+  const CartList = React.lazy(() => import("./cartList/CartList.jsx"));
+  const Orderlist = React.lazy(() => import("./orderList/OrderList.jsx"));
+  const Account = React.lazy(() => import("./account/Account.jsx"));
   //effects
   //init cart
   useEffect(() => {
@@ -66,6 +60,16 @@ export default function CartPage({ type = 1 }) {
   // useEffect(() => {
   //   dispatch(resetPayment());
   // }, [dispatch, curCart.totPrice]);
+
+  const tabViewObjs = useMemo(
+    () => [
+      { component: <ProdList /> },
+      { component: <CartList /> },
+      { component: <Orderlist /> },
+      { component: <Account /> },
+    ],
+    [ProdList, Orderlist]
+  );
 
   return (
     <>

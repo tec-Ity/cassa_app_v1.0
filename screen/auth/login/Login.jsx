@@ -29,7 +29,7 @@ export default function Login() {
         paddingTop: "40%",
       }}
     >
-      <Text h2 style={{ fontWeight: 700, marginBottom: 50 }}>
+      <Text h2 style={{ fontWeight: "bold", marginBottom: 50 }}>
         请登录
       </Text>
       <Input

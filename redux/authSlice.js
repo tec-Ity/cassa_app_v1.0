@@ -15,7 +15,7 @@ export const getLoginStatusFromStorage = createAsyncThunk(
   "auth/getLoginStatusFromStorage",
   async (foo = true) => {
     const accessToken = await getData("accessToken");
-    console.log(accessToken);
+    // console.log(accessToken);
     if (accessToken) return true;
     else return false;
   }
@@ -25,7 +25,7 @@ export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
   async (system, { getState, rejectWithValue }) => {
     const loginRes = await axios_Prom("/login", "POST", { system });
-    console.log(loginRes);
+    // console.log(loginRes);
     if (loginRes.status === 200) {
       await storeData("refreshToken", loginRes.data.refreshToken);
       await storeData("accessToken", loginRes.data.accessToken);

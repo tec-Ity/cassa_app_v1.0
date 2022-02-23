@@ -131,7 +131,7 @@ export const fetchProds = createAsyncThunk(
     const prodsRes = await fetch_Prom(
       `${fetchObjs.api}?populateObjs=${JSON.stringify(populateObjs)}`
     );
-    console.log(prodsRes);
+    // console.log(prodsRes);
     if (prodsRes.status === 200)
       return { objects: prodsRes.data.objects, isReload };
     else return rejectWithValue(prodsRes.message);

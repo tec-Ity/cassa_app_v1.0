@@ -30,7 +30,7 @@ const orderConf = {
       populateObjs,
       sortKey: "at_crt",
       sortVal: -1,
-      upd_after: moment().format("MM/DD/YYYY"),
+      // upd_after: moment().format("MM/DD/YYYY"),
     },
   },
 };

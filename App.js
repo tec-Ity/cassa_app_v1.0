@@ -5,8 +5,22 @@ import { store } from "./redux/store";
 import { StyleSheet, Text, View } from "react-native";
 import { ThemeProvider } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import React from "react";
+import React, { Suspense } from "react";
 import AppContent from "./AppContent";
+
+// import * as Sentry from "sentry-expo";
+
+// Sentry.init({
+//   dsn: "localhost:3000",
+//   enableInExpoDevelopment: true,
+//   debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+// });
+
+// // Access any @sentry/react-native exports via:
+// Sentry.Native.*
+
+// // Access any @sentry/browser exports via:
+// Sentry.Browser.*
 
 // import { useColorScheme } from "react-native-appearance";
 const theme = {
@@ -25,16 +39,18 @@ export default function App() {
       theme={theme}
       // useDark={colorScheme === "dark"}
     >
-      <View style={styles.container}>
-        <Provider store={store}>
-          <NativeRouter>
-            <SafeAreaProvider style={{ width: "100%" }}>
-              <AppContent />
-            </SafeAreaProvider>
-          </NativeRouter>
-        </Provider>
-        <StatusBar barStyle="auto" />
-      </View>
+      <Suspense fallback={<></>}>
+        <View style={styles.container}>
+          <Provider store={store}>
+            <NativeRouter>
+              <SafeAreaProvider style={{ width: "100%" }}>
+                <AppContent />
+              </SafeAreaProvider>
+            </NativeRouter>
+          </Provider>
+          <StatusBar barStyle="auto" />
+        </View>
+      </Suspense>
     </ThemeProvider>
   );
 }

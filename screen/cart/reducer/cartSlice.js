@@ -284,8 +284,8 @@ export const cartSlice = createSlice({
     },
     initCart: {
       reducer(state, action) {
-        if (state.curCart) return;
-        console.log("init");
+        if (state.curCart?.OrderProds) return;
+        // console.log("init");
         const { cartId, crt_at, type } = action.payload;
         const cartTemp = {
           cartId: cartId,
@@ -324,6 +324,7 @@ export const cartSlice = createSlice({
           let orderSkuTemp;
           if (sku)
             orderSkuTemp = {
+              _id: sku._id,
               Sku: sku._id,
               attrs: sku.attrs,
               price: type === -1 ? sku.price_sale : sku.price_cost,
@@ -335,6 +336,8 @@ export const cartSlice = createSlice({
             };
 
           const orderProdTemp = {
+            _id: prod._id,
+            code: prod.code,
             Prod: prod._id,
             nome: prod.nome,
             // OrderSkus: [orderSkuTemp],

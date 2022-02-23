@@ -44,7 +44,7 @@ export default function Navigation({ children }) {
   const [section, setSection] = React.useState("front");
   const navi = navis[section];
 
-  console.log(location?.pathname);
+  // console.log(location?.pathname);
   const curBase = location?.pathname?.split("/")[1];
   const curRoute = location?.pathname?.split("/")[2];
   //redirect to default index when change front or back
