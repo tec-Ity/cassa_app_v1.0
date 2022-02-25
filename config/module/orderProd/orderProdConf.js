@@ -3,7 +3,8 @@ import moment from "moment";
 const populateObjs = [
   {
     path: "Order",
-    select: "Client OrderProds order_imp",
+    select:
+      "code Client OrderProds order_imp order_sale goods_sale price_coin symbol price_paid",
     populate: [
       { path: "Client", select: "nome code" },
       {

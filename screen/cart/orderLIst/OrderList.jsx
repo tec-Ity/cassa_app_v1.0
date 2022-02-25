@@ -20,6 +20,7 @@ import getPrice from "../../../utils/price/getPrice.js";
 import { get_DNS } from "../../../api/api.js";
 import ClientFilter from "./ClientFilter.jsx";
 import PaidTypeFilter from "./PaidTypeFilter.jsx";
+import OrderDateFilter from "./OrderDateFIlter.jsx";
 export default function OrderList({ type = -1 }) {
   const dispatch = useDispatch();
   const searchParams = { 0: "order", 1: "prod" };
@@ -34,7 +35,7 @@ export default function OrderList({ type = -1 }) {
       : fetchObjsOrderProd;
   }, [type, selectedIndex]);
 
-  const filters = [ClientFilter, PaidTypeFilter];
+  const filters = [ClientFilter, PaidTypeFilter, OrderDateFilter];
 
   useEffect(() => {
     fetchObjs && dispatch(getObjects({ fetchObjs }));

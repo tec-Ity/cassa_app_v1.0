@@ -42,7 +42,7 @@ export default function ClientFilter({ fetchObjs, type = -1 }) {
     { content: "散客", handleClick: handleSelClient("null") },
     {
       content: "会员",
-      extraContent: client && <ClientListItem client={client} />,
+      extraContent: client ? <ClientListItem client={client} /> : <></>,
       handleClick: () => setShowClientModal(true),
     },
   ];

@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Button, ListItem, Text } from "react-native-elements";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProdControl from "../prodlist/ProdControl";
 import CusClientOverlay from "../../../component/overlay/CusClientOverlay.jsx";
+import { cartClientPost } from "../reducer/cartSlice";
 
 export default function CartList({ type }) {
+  const dispatch = useDispatch();
   const curCart = useSelector((state) => state.cart.curCart);
   const [showClientOverlay, setShowClientOverlay] = useState(false);
 
@@ -13,7 +15,7 @@ export default function CartList({ type }) {
     // console.log(subject);
     if (subject) {
       dispatch(cartClientPost({ subject, type }));
-      setShowClientModal(false);
+      setShowClientOverlay(false);
     }
   };
 
@@ -28,6 +30,7 @@ export default function CartList({ type }) {
           />
           <Button title="添加折扣" containerStyle={{ width: "40%" }} />
         </View>
+        <Text>会员: {curCart?.subject?.code}</Text>
         <View>
           <Text>共 {curCart.totItem} 件</Text>
           <View></View>
