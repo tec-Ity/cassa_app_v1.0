@@ -5,7 +5,7 @@ const populateObjs = [
   {
     path: "OrderProds",
     select:
-      "Prod OrderSkus nome price_sale is_simple quantity price_regular price_sale price prod_quantity",
+      "code Prod OrderSkus nome price_sale is_simple quantity price_regular price_sale price prod_quantity",
     populate: [
       {
         path: "OrderSkus",

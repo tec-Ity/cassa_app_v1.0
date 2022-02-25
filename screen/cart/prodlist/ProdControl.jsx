@@ -20,7 +20,7 @@ export default function ProdControl({ prod, sku }) {
   const quantity = skuId
     ? useSelector(selectSkuQuantity(prod._id, sku._id))
     : useSelector(selectProdQuantity(prod._id));
-
+  const prodQuantity = useSelector(selectProdQuantity(prod._id));
   //func
   const handleItemPost = useCallback(
     (prod, sku) => () => {
@@ -68,6 +68,7 @@ export default function ProdControl({ prod, sku }) {
       {isSimple === false ? (
         <Button
           icon={{ name: "list", color: "white" }}
+          title={prodQuantity > 0 && `已选 ${prodQuantity} 件`}
           containerStyle={{ width: "60%" }}
           onPress={handleClickMulti(prod, Skus)}
         />

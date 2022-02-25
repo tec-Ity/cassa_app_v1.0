@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useMemo, Suspense } from "react";
 import { View } from "react-native";
 import { Tab, Text, TabView } from "react-native-elements";
 import ProdStorage from "../_prodStorage/ProdStorage.jsx";
-// import ProdList from "./prodlist/ProdList.jsx";
-// import CartList from "./cartList/CartList";
-// import OrderList from "./orderLIst/OrderList";
-// import Account from "./account/Account";
+import ProdList from "./prodlist/ProdList.jsx";
+import CartList from "./cartList/CartList";
+import OrderList from "./orderList/OrderList";
+import Account from "./account/Account";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -44,10 +44,6 @@ export default function CartPage({ type = 1 }) {
   const [index, setIndex] = React.useState(0);
   const dispatch = useDispatch();
   const curCart = useSelector((state) => state.cart.curCart);
-  const ProdList = React.lazy(() => import("./prodlist/ProdList.jsx"));
-  const CartList = React.lazy(() => import("./cartList/CartList.jsx"));
-  const Orderlist = React.lazy(() => import("./orderList/OrderList.jsx"));
-  const Account = React.lazy(() => import("./account/Account.jsx"));
   //effects
   //init cart
   useEffect(() => {
@@ -65,10 +61,10 @@ export default function CartPage({ type = 1 }) {
     () => [
       { component: <ProdList /> },
       { component: <CartList /> },
-      { component: <Orderlist /> },
+      { component: <OrderList /> },
       { component: <Account /> },
     ],
-    [ProdList, Orderlist]
+    []
   );
 
   return (
@@ -98,7 +94,10 @@ export default function CartPage({ type = 1 }) {
 
         <TabView value={index} onChange={setIndex} animationType="spring">
           {tabViewObjs?.map((tabView, index) => (
-            <TabView.Item key={index} style={{ width: "100%", height: "100%" }}>
+            <TabView.Item
+              key={index}
+              style={{ width: "100%", height: "100%", paddingTop: 10 }}
+            >
               {tabView.component}
             </TabView.Item>
           ))}
