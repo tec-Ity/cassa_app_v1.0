@@ -41,7 +41,7 @@ export default function Navigation({ children }) {
   const location = useLocation();
   const isLogin = useSelector((state) => state.auth.isLogin);
   //state
-  const [section, setSection] = React.useState("front");
+  const [section, setSection] = React.useState("back");
   const navi = navis[section];
 
   // console.log(location?.pathname);
@@ -64,6 +64,7 @@ export default function Navigation({ children }) {
       }
       curRoute={curRoute}
       children={children}
+      navigate={navigate}
     />
   ) : (
     <SafeAreaView style={{ height: "100%", width: "100%" }}>
@@ -77,19 +78,25 @@ const AuthNav = ({ children, userRoles, curRole, isLogin }) => {
   else return <></>;
 };
 
-const UI = ({ isLogin, navi, toggleSection, curRoute, children }) => {
+const UI = ({ isLogin, navi, toggleSection, curRoute, children, navigate }) => {
   return (
     <View>
       <Header
         style={{ width: "100%" }}
-        leftComponent={{
-          icon: "menu",
-          color: "#fff",
-        }}
-        rightComponent={{
-          icon: "person",
-          color: "#fff",
-        }}
+        leftComponent={
+          <Icon
+            name="menu"
+            color="white"
+            onPress={() => navigate("/B/dashboard")}
+          />
+        }
+        rightComponent={
+          <Icon
+            name="person"
+            color="white"
+            onPress={() => navigate("/B/settings")}
+          />
+        }
         centerComponent={{
           text: "管理",
           style: { color: "white", fontSize: 22, fontWeight: "bold" },

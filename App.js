@@ -29,6 +29,12 @@ const theme = {
       // color: "red",
     },
   },
+  Overlay: {
+    overlayStyle: {
+      width: "90%",
+      height: "50%",
+    },
+  },
 };
 
 // let colorScheme = useColorScheme();

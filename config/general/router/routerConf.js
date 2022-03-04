@@ -1,5 +1,5 @@
 // import CartPage from "../../../view/cart/CartPage";
-// import ProdList from "../../../view/prod/list/ProdList";
+import ProdList from "../../../screen/prod/prodList/ProdList.jsx";
 // import UserList from "../../../view/user/list/UserList";
 // import OrderList from "../../../view/order/list/OrderList";
 // import ShopList from "../../../view/shop/list/ShopList.jsx";
@@ -12,6 +12,8 @@
 import LogoutComp from "../../../screen/auth/logout/LogoutComp.jsx";
 import CartPage from "../../../screen/cart/CartPage.jsx";
 import { Text } from "react-native-elements";
+import Dashboard from "../../../screen/dashboard/Dashboard.jsx";
+import Setting from "../../../screen/setting/Setting.jsx";
 
 const loginUrl = "/login";
 const logoutUrl = "/logout";
@@ -31,7 +33,7 @@ const backSettingRoutes = [
   {
     path: "/",
     // element: <SettingPage type={-1} />,
-    element: <Text>screen</Text>,
+    element: <Setting />,
 
     role: ["boss"],
   },
@@ -99,7 +101,7 @@ const backRoutes = {
   routes: [
     {
       path: "/dashboard",
-      element: <Text>dashboard</Text>,
+      element: <Dashboard />,
       // element: <>dashboard</>,
       role: ["worker", "boss"],
     },
@@ -127,8 +129,8 @@ const backRoutes = {
     //prod
     {
       path: "/prods",
-      element: <Text>screen</Text>,
-      // element: <ProdList />,
+      // element: <Text>screen</Text>,
+      element: <ProdList />,
       role: ["boss"],
     },
     {

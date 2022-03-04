@@ -59,7 +59,7 @@ export default function Router() {
       })}
       <Route path={noAuthUrl} element={<Text>no permission</Text>} />
       <Route path={logoutUrl} element={<LogoutComp />} />
-      <Route path="/" element={<Navigate to="/F/cart" />} />
+      <Route path="/" element={<Navigate to="/B/dashboard" />} />
       <Route path="*" element={<Text>not found</Text>} />
     </Routes>
   );

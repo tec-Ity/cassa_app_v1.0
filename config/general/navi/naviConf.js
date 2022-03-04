@@ -31,54 +31,54 @@ const backNav = {
   links: [
     {
       to: "dashboard",
-      label: "dashboard",
+      label: "主页",
       role: ["worker", "boss"],
     },
     {
       to: "purchase",
-      label: "purchase",
+      label: "采购",
       role: ["worker", "boss"],
     },
     {
       to: "prods",
-      label: "prod list",
+      label: "商品",
       role: ["boss"],
     },
 
     {
       to: "orders",
-      label: "order",
+      label: "订单",
       role: ["boss"],
     },
     {
       to: "purOrders",
-      label: "purchase orders",
+      label: "采购单",
       role: ["worker", "boss"],
     },
     {
       to: "clients",
-      label: "client",
+      label: "会员",
       role: ["boss"],
     },
 
     {
       to: "users",
-      label: "user list",
+      label: "用户",
       role: ["boss"],
     },
     {
       to: "shops",
-      label: "shop list",
+      label: "门店",
       role: ["boss"],
     },
     {
       to: "suppliers",
-      label: "supplier list",
+      label: "供应商",
       role: ["boss"],
     },
     {
       to: "settings",
-      label: "settings",
+      label: "设置",
       role: ["boss"],
     },
   ],
