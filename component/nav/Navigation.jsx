@@ -17,7 +17,7 @@ import {
   DrawerLayout,
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "react-native-web";
+import { View } from "react-native";
 // import { ReactComponent as Logo } from "../../assets/logo/hfclogo.svg";
 
 const curRole = "boss";

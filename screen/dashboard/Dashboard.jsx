@@ -25,6 +25,7 @@ export default function Dashboard() {
         (nav, index) =>
           index !== 0 && (
             <View
+              key={nav.to}
               style={{
                 width: "30%",
                 marginBottom: 30,
