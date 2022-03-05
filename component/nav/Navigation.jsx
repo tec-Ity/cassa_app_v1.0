@@ -11,13 +11,8 @@ import navigations, {
 } from "../../config/general/navi/naviConf";
 //RNE
 import { Header, Icon } from "react-native-elements";
-import {
-  ScrollView,
-  TouchableOpacity,
-  DrawerLayout,
-} from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 // import { ReactComponent as Logo } from "../../assets/logo/hfclogo.svg";
 
 const curRole = "boss";

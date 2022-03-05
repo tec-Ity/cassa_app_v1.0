@@ -8,7 +8,6 @@ import {
   Overlay,
   Text,
 } from "react-native-elements";
-// import { ScrollView } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetProdShow,
