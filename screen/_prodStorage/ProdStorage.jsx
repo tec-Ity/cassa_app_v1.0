@@ -16,7 +16,14 @@ export default function ProdStorage() {
     <Overlay
       isVisible={getStatus === "loading"}
       // isVisible
-      overlayStyle={{ backgroundColor: "transparent", boxShadow: "none" }}
+      overlayStyle={{
+        // backgroundColor: "transparent",
+        boxShadow: "none",
+        height: 80,
+        width: 80,
+        justifyContent: "center",
+        borderRadius: 20,
+      }}
     >
       <FAB
         loading

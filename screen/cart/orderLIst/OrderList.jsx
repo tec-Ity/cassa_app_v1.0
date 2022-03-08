@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { FlatList, ScrollView, View } from "react-native";
 import {
   ButtonGroup,
   Chip,
@@ -77,95 +77,98 @@ export default function OrderList({ type = -1 }) {
             ))}
           </View>
         </View>
-        <ScrollView style={{ height: 100 }}>
-          {orders?.map((order) => (
-            <ListItem
-              key={order._id}
-              bottomDivider
-              onPress={() => setCurOrder(order)}
-            >
-              <ListItem.Content>
-                <ListItem.Title>{order.code}</ListItem.Title>
-                <ListItem.Subtitle>
-                  {moment(order.at_crt).format("HH:MM")}
-                </ListItem.Subtitle>
-              </ListItem.Content>
-              <ListItem.Content right>
-                <ListItem.Title>{getPrice(order.order_imp)}</ListItem.Title>
-                <ListItem.Subtitle>
-                  共{order.goods_quantity}件
-                </ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </ScrollView>
+        <FlatList
+          data={orders}
+          renderItem={({ item }) => (
+            <OrderItem item={item} onPress={() => setCurOrder(item)} />
+          )}
+          keyExtractor={(item) => item._id}
+        />
       </View>
       {curOrder && (
-        <Overlay isVisible={Boolean(curOrder)} fullScreen>
-          <Icon name="arrow-back" raised onPress={() => setCurOrder(null)} />
-          <ScrollView>
-            <ListItem>
-              <ListItem.Content>
-                <ListItem.Title>{curOrder.code}</ListItem.Title>
-                <ListItem.Subtitle>
-                  {moment(curOrder.at_crt).format("HH:MM")}
-                </ListItem.Subtitle>
-              </ListItem.Content>
-              <ListItem.Content right>
-                <ListItem.Title>{getPrice(curOrder.order_imp)}</ListItem.Title>
-                <ListItem.Subtitle>
-                  共{curOrder.goods_quantity}件
-                </ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-            <View>
-              {curOrder.OrderProds?.map((op) => (
-                <ListItem key={op._id} bottomDivider>
-                  <Image
-                    source={{ uri: get_DNS() + op?.Prod?.img_urls[0] }}
-                    // PlaceholderContent={<ActivityIndicator />}
-                    containerStyle={{
-                      height: 80,
-                      width: 80,
-                    }}
-                    transition
-                  />
-                  <ListItem.Content>
-                    <View
-                      style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View>
-                        <ListItem.Title
-                          style={{ fontSize: 22, fontWeight: "bold" }}
-                        >
-                          {op?.code}
-                        </ListItem.Title>
-                        <ListItem.Subtitle style={{ fontSize: 18 }}>
-                          {op?.nome}
-                        </ListItem.Subtitle>
-                      </View>
-                      <View>
-                        <ListItem.Title
-                          style={{ fontSize: 22, fontWeight: "bold" }}
-                        >
-                          {getPrice(op?.price_sale)}
-                        </ListItem.Title>
-                        <ListItem.Subtitle style={{ fontSize: 16 }}>
-                          共{op.quantity}件
-                        </ListItem.Subtitle>
-                      </View>
-                    </View>
-                  </ListItem.Content>
-                </ListItem>
-              ))}
-            </View>
-          </ScrollView>
-        </Overlay>
+        <OrderOverlay order={curOrder} onPress={() => setCurOrder(null)} />
       )}
     </>
   );
 }
+
+const OrderOverlay = ({ order, onPress }) => (
+  <Overlay
+    isVisible={Boolean(order)}
+    overlayStyle={{ height: "100%", width: "100%" }}
+  >
+    <Icon name="arrow-back" raised onPress={onPress} />
+    <ScrollView>
+      <ListItem>
+        <ListItem.Content>
+          <ListItem.Title>{order.code}</ListItem.Title>
+          <ListItem.Subtitle>
+            {moment(order.at_crt).format("HH:MM")}
+          </ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Content right>
+          <ListItem.Title>{getPrice(order.order_imp)}</ListItem.Title>
+          <ListItem.Subtitle>共{order.goods_quantity}件</ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
+      <View>
+        {order.OrderProds?.map((op) => (
+          <ListItem key={op._id} bottomDivider>
+            <Image
+              source={{ uri: get_DNS() + op?.Prod?.img_urls[0] }}
+              // PlaceholderContent={<ActivityIndicator />}
+              containerStyle={{
+                height: 80,
+                width: 80,
+              }}
+              transition
+            />
+            <ListItem.Content>
+              <View
+                style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <ListItem.Title style={{ fontSize: 22, fontWeight: "bold" }}>
+                    {op?.code}
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={{ fontSize: 18 }}>
+                    {op?.nome}
+                  </ListItem.Subtitle>
+                </View>
+                <View>
+                  <ListItem.Title style={{ fontSize: 22, fontWeight: "bold" }}>
+                    {getPrice(op?.price_sale)}
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={{ fontSize: 16 }}>
+                    共{op.prod_quantity}件
+                  </ListItem.Subtitle>
+                </View>
+              </View>
+            </ListItem.Content>
+          </ListItem>
+        ))}
+      </View>
+    </ScrollView>
+  </Overlay>
+);
+
+const OrderItem = ({ item, onPress }) => {
+  return (
+    <ListItem key={item._id} bottomDivider onPress={onPress}>
+      <ListItem.Content>
+        <ListItem.Title>{item.code}</ListItem.Title>
+        <ListItem.Subtitle>
+          {moment(item.at_crt).format("HH:MM")}
+        </ListItem.Subtitle>
+      </ListItem.Content>
+      <ListItem.Content right>
+        <ListItem.Title>{getPrice(item.item_imp)}</ListItem.Title>
+        <ListItem.Subtitle>共{item.goods_quantity}件</ListItem.Subtitle>
+      </ListItem.Content>
+    </ListItem>
+  );
+};

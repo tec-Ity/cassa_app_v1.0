@@ -7,7 +7,7 @@ import { ThemeProvider } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import React, { Suspense } from "react";
 import AppContent from "./AppContent";
-
+import "./utils/language/i18n";
 // import * as Sentry from "sentry-expo";
 
 // Sentry.init({

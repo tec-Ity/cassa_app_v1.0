@@ -57,7 +57,7 @@ export default function SearchInput({
         paddingLeft: 0,
         paddingRight: 0,
       }}
-      errorStyle={{ margin: 0 }} //disable error message
+      errorStyle={{ margin: 0, height: 0 }} //disable error message
       leftIcon={{ name: "search" }}
       onChangeText={(value) => {
         setValue(value);

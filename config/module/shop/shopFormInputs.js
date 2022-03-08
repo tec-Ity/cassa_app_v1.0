@@ -10,7 +10,7 @@ const shopFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Code",
+      label: "code",
     },
     itemProps: {
       itemType: "input",
@@ -29,7 +29,7 @@ const shopFormInputs = [
         length: { min: 4, max: 16 },
         type: "string",
       },
-      label: "Name",
+      label: "nome",
     },
     itemProps: {
       itemType: "input",
@@ -48,7 +48,7 @@ const shopFormInputs = [
         // length: { min: 4, max: 16 },
         type: "string",
       },
-      label: "City",
+      label: "Cita",
     },
     itemProps: {
       itemType: "input",
@@ -65,7 +65,7 @@ const shopFormImg = {
   disabled: false,
   accept: "image/*",
   multiple: true,
-  message: "Only images will be accepted",
+  message: "onlyImage",
 };
 export default shopFormInputs;
 export { shopFormImg };

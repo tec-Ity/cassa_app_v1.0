@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, View } from "react-native";
+import { ActivityIndicator, FlatList, ScrollView, View } from "react-native";
 import {
   Button,
   Image,
@@ -8,6 +8,7 @@ import {
   Overlay,
   Text,
 } from "react-native-elements";
+// import { ScrollView } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetProdShow,
@@ -58,19 +59,12 @@ export default function ProdList() {
           position: "relative",
         }}
       >
-        <ScrollView
-          style={{
-            height: 100,
-          }}
-        >
-          {prodsShow?.map((prod) => (
-            <ProdItem
-              prod={prod}
-              key={prod._id}
-              // onPress={() => handleShowProdOverlay(prod)}
-            />
-          ))}
-        </ScrollView>
+        <FlatList
+          style={{ height: 100 }}
+          data={prodsShow}
+          renderItem={({ item }) => item && <ProdItem prod={item} />}
+          keyExtractor={(item) => item._id}
+        />
         <SearchSection handleSearchProd={handleSearchProd} />
       </View>
 
@@ -108,7 +102,7 @@ const SearchSection = ({ handleSearchProd }) => {
         backgroundColor: "white",
       }}
     >
-      <View style={{ width: "60%" }}>
+      <View style={{ width: "60%", borderTopWidth: 1 }}>
         <SearchInput placeholder="搜索" handleChange={handleSearchProd} />
       </View>
       <View style={{ width: "40%", backgroundColor: "rgba(78, 116, 289, 1)" }}>

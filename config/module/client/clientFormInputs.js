@@ -11,7 +11,7 @@ const clientFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Code",
+      label: "code",
     },
     itemProps: {
       itemType: "input",
@@ -30,7 +30,7 @@ const clientFormInputs = [
         length: { min: 4, max: 16 },
         type: "string",
       },
-      label: "Name",
+      label: "nome",
     },
     itemProps: {
       itemType: "input",
@@ -49,7 +49,7 @@ const clientFormInputs = [
   //       length: { min: 4, max: 16 },
   //       type: "string",
   //     },
-  //     label: "Password",
+  //     label: "pwd",
   //   },
   //   itemProps: {
   //     itemType: "input",
@@ -66,7 +66,7 @@ const clientFormImg = {
   disabled: false,
   accept: "image/*",
   multiple: true,
-  message: "Only images will be accepted",
+  message: "onlyImage",
 };
 
 export default clientFormInputs;

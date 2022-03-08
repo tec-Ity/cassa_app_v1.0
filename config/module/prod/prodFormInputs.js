@@ -10,7 +10,7 @@ const prodFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Code",
+      label: "code",
     },
     itemProps: {
       itemType: "input",
@@ -29,7 +29,26 @@ const prodFormInputs = [
         length: { min: 2, max: 16 },
         type: "string",
       },
-      label: "Name",
+      label: "nome",
+    },
+    itemProps: {
+      itemType: "input",
+      type: "text",
+      disabled: false,
+      sx: { width: "100%" },
+    },
+  },
+  /////////nameCN
+  {
+    formProps: { gridSize: 6 },
+    general: {
+      field: "nomeCN",
+      rules: {
+        required: true,
+        length: { min: 2, max: 16 },
+        type: "string",
+      },
+      label: "nomeCN",
     },
     itemProps: {
       itemType: "input",
@@ -47,7 +66,7 @@ const prodFormInputs = [
         required: true,
         type: "float",
       },
-      label: "Price",
+      label: "price_sale",
     },
     itemProps: {
       itemType: "input",
@@ -65,7 +84,7 @@ const prodFormInputs = [
         required: true,
         type: "float",
       },
-      label: "Unit price",
+      label: "price_regular",
     },
     itemProps: {
       itemType: "input",
@@ -83,13 +102,50 @@ const prodFormInputs = [
         required: false,
         type: "float",
       },
-      label: "cost",
+      label: "price_cost",
     },
     itemProps: {
       itemType: "input",
       type: "price",
       sx: { width: "100%" },
       disabled: false,
+    },
+  },
+  /////////unit
+  {
+    formProps: { gridSize: 6 },
+    general: {
+      field: "unit",
+      rules: {
+        required: true,
+        type: "string",
+      },
+      label: "unit",
+    },
+    itemProps: {
+      itemType: "input",
+      type: "text",
+      disabled: false,
+      sx: { width: "100%" },
+    },
+  },
+  /////////weight
+  {
+    formProps: { gridSize: 6 },
+    general: {
+      field: "weight",
+      rules: {
+        required: true,
+        type: "float",
+      },
+      label: "weight",
+    },
+    itemProps: {
+      itemType: "input",
+      type: "text",
+      disabled: false,
+      sx: { width: "100%" },
+      endAdornment: "KG",
     },
   },
   //////////categ
@@ -157,7 +213,7 @@ const prodFormImg = {
   disabled: false,
   accept: "image/*",
   multiple: true,
-  message: "Only images will be accepted",
+  message: "onlyImage",
 };
 export default prodFormInputs;
 export { prodFormImg };

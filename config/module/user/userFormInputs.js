@@ -11,7 +11,7 @@ const userFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Code",
+      label: "code",
     },
     itemProps: {
       itemType: "input",
@@ -30,7 +30,7 @@ const userFormInputs = [
         length: { min: 4, max: 16 },
         type: "string",
       },
-      label: "Name",
+      label: "nome",
     },
     itemProps: {
       itemType: "input",
@@ -49,7 +49,7 @@ const userFormInputs = [
         length: { min: 4, max: 16 },
         type: "string",
       },
-      label: "Password",
+      label: "pwd",
     },
     itemProps: {
       itemType: "input",
@@ -111,7 +111,7 @@ const userFormImg = {
   disabled: false,
   accept: "image/*",
   multiple: true,
-  message: "Only images will be accepted",
+  message: "onlyImage",
 };
 export default userFormInputs;
 export { userFormImg };

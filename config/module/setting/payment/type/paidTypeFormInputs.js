@@ -11,7 +11,7 @@ const paidTypeFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Code",
+      label: "code",
     },
     itemProps: {
       itemType: "input",
@@ -30,7 +30,7 @@ const paidTypeFormInputs = [
         // length: { min: 4, max: 16 },
       },
       msg: {},
-      label: "Currency",
+      label: "Coin",
     },
     itemProps: {
       itemType: "autoComplete",
@@ -49,7 +49,7 @@ const paidTypeFormInputs = [
         // required: true,
       },
       msg: {},
-      label: "Cash",
+      label: "is_cash",
     },
     itemProps: {
       itemType: "checkBox",

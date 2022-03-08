@@ -5,7 +5,7 @@ const populateObjs = [
   {
     path: "OrderProds",
     select:
-      "code Prod OrderSkus nome price_sale is_simple quantity price_regular price_sale price prod_quantity",
+      "Prod OrderSkus nome price_sale is_simple quantity price_regular price_sale price prod_quantity",
     populate: [
       {
         path: "OrderSkus",
@@ -30,7 +30,7 @@ const orderConf = {
       populateObjs,
       sortKey: "at_crt",
       sortVal: -1,
-      // upd_after: moment().format("MM/DD/YYYY"),
+      upd_after: moment().format("MM/DD/YYYY"),
     },
   },
 };

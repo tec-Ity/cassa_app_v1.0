@@ -10,7 +10,7 @@ const coinFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Code",
+      label: "code",
     },
     itemProps: {
       itemType: "input",
@@ -29,7 +29,7 @@ const coinFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Name",
+      label: "nome",
     },
     itemProps: {
       itemType: "input",
@@ -48,7 +48,7 @@ const coinFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Rate",
+      label: "rate",
     },
     itemProps: {
       itemType: "input",
@@ -67,7 +67,7 @@ const coinFormInputs = [
         type: "string",
       },
       msg: {},
-      label: "Symbol",
+      label: "symbol",
     },
     itemProps: {
       itemType: "input",
@@ -83,7 +83,7 @@ const coinFormInputs = [
       field: "sort",
       rules: {},
       msg: {},
-      label: "Sort",
+      label: "sort",
     },
     itemProps: {
       itemType: "input",
@@ -91,6 +91,20 @@ const coinFormInputs = [
       disabled: false,
       sx: { width: "100%" },
       placeholder: "0 ~ 999",
+    },
+  },
+  {
+    formProps: { gridSize: 6 },
+    general: {
+      field: "is_defCoin",
+      rules: {},
+      msg: {},
+      label: "isDefault",
+    },
+    itemProps: {
+      itemType: "checkBox",
+      disabled: false,
+      sx: { width: "100%" },
     },
   },
 ];
