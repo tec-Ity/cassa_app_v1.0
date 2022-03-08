@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect, useMemo } from "react";
 //component
 import FormItem from "./FormItem";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Button } from "react-native-elements";
 
 export default function CusForm({
@@ -150,7 +150,7 @@ export default function CusForm({
 
   return (
     <View>
-      <View>
+      <ScrollView style={{ height: 100 }}>
         {/* {fileInput && (
             <Grid item xs={12}>
               {fileInputMemo}
@@ -184,7 +184,7 @@ export default function CusForm({
           <Button type="clear" title="cancel" onPress={handleCancelSelf} />
           <Button title="submit" onPress={handleSubmitSelf} />
         </View>
-      </View>
+      </ScrollView>
       {/* <CusModal
         open={showFormAlert}
         onClose={() => setShowFormAlert(false)}
