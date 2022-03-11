@@ -167,13 +167,16 @@ export const cartSlice = createSlice({
     openMultiSkuModal: (state, action) => {
       try {
         const { open, prod } = action.payload;
+        console.log(11, open, prod);
         if (open) {
+          console.log(22);
           if (!prod || !prod.Skus) throw new Error("no skus");
           if (!prod?.Skus?.length > 0)
             throw new Error("skus is not array or has 0 skus");
           state.showMultiSkuModal = true;
           state.curMultiSkuProd = prod;
         } else {
+          console.log(33);
           state.showMultiSkuModal = false;
           state.curMultiSkuProd = null;
         }
@@ -521,6 +524,7 @@ export const cartSlice = createSlice({
       state.cartPostStatus = "succeed";
       const newOrder = action.payload;
       state.postedOrder = newOrder;
+      state.curCart = {};
     },
     [fetchCartOrderPost.rejected]: (state, action) => {
       state.cartPostStatus = "error";

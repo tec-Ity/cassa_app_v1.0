@@ -83,6 +83,7 @@ export default function OrderList({ type = -1 }) {
             <OrderItem item={item} onPress={() => setCurOrder(item)} />
           )}
           keyExtractor={(item) => item._id}
+          // refreshing={}
         />
       </View>
       {curOrder && (
@@ -166,7 +167,7 @@ const OrderItem = ({ item, onPress }) => {
         </ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Content right>
-        <ListItem.Title>{getPrice(item.item_imp)}</ListItem.Title>
+        <ListItem.Title>{getPrice(item.order_imp)}</ListItem.Title>
         <ListItem.Subtitle>共{item.goods_quantity}件</ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>

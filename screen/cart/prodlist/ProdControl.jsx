@@ -49,6 +49,7 @@ export default function ProdControl({ prod, sku }) {
   const handleClickMulti = useCallback(
     (prod) => () => {
       if (prod) {
+        console.log("multisku click");
         dispatch(openMultiSkuModal({ open: true, prod }));
       }
     },

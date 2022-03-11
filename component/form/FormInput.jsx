@@ -89,7 +89,7 @@ const TextInput = ({
     <Input
       disabled={disabled}
       label={label}
-      value={value}
+      value={String(value)}
       errorMessage={warningMsg}
       placeholder={placeholder}
       onChangeText={(value) => handleChange(value)}
@@ -114,7 +114,7 @@ function PasswordInput({
   return (
     <Input
       label={label}
-      value={value}
+      value={String(value)}
       errorMessage={warningMsg}
       placeholder={placeholder}
       onChangeText={(value) => handleChange(value)}
@@ -146,7 +146,7 @@ function PhoneInput({
       value={phoneNum}
       errorMessage={warningMsg}
       placeholder={placeholder}
-      onChange={(e) => handleChange({ phonePre, phoneNum: e.target.value })}
+      onChangeText={(e) => handleChange({ phonePre, phoneNum: e.target.value })}
       onBlur={fieldCheck(value)}
       {...rest}
     />
@@ -166,12 +166,12 @@ function PriceInput({
 }) {
   const [selfWarning, setSelfWarning] = useState(null);
 
-  const onChange = useCallback((e) => {
-    if (isNaN(e.target.value?.replace(/[,.]/, ""))) {
+  const onChange = useCallback((value) => {
+    if (isNaN(value?.replace(/[,.]/, ""))) {
       setSelfWarning("Must be a number or ',' or '.'!");
     } else {
       setSelfWarning(null);
-      handleChange(e.target.value);
+      handleChange(value);
     }
   }, []);
 
@@ -188,7 +188,7 @@ function PriceInput({
       error={Boolean(selfWarning || warningMsg)}
       helperText={selfWarning || warningMsg}
       placeholder={placeholder}
-      onChange={onChange}
+      onChangeText={onChange}
       onBlur={fieldCheck(value)}
       {...rest}
     />
@@ -213,7 +213,7 @@ function SelectInput({
       select
       disabled={disabled}
       label={label}
-      value={value}
+      value={String(value)}
       errorMessage={warningMsg}
       placeholder={placeholder}
       onChangeText={(value) => handleChange(value)}

@@ -10,7 +10,7 @@ import CusPutModal from "../../../component/modal/control/CusPutModal.jsx";
 import { fetchObj } from "../../../config/module/prod/prodConf";
 import formInputs from "../../../config/module/prod/prodFormInputs";
 
-export default function ProdList() {
+export default function d() {
   const dispatch = useDispatch();
   const objects = useSelector(selectObjects(fetchObjs.flag));
   const [refreshing, setRefreshing] = React.useState(false);
@@ -41,6 +41,7 @@ export default function ProdList() {
         </View>
 
         <FlatList
+          style={{ height: 650 }}
           data={objects}
           renderItem={({ item }) => (
             <CusListItem
@@ -87,7 +88,7 @@ export default function ProdList() {
   );
 }
 
-const CusListItem = ({ item, onPress }) => {
+export const CusListItem = ({ item, onPress }) => {
   return (
     <ListItem containerStyle={{ height: 100 }} bottomDivider onPress={onPress}>
       <Image

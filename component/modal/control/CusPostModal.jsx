@@ -32,6 +32,7 @@ export default function CusPostModal({
 
   //func
   const handleSubmit = (formValue) => {
+    console.log(222);
     const formData = new FormData();
     const { image, ...obj } = formValue;
     formData.append("obj", JSON.stringify(obj));

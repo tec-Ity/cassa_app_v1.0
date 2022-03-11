@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, Suspense } from "react";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import { Tab, Text, TabView } from "react-native-elements";
 import ProdStorage from "../_prodStorage/ProdStorage.jsx";
 import ProdList from "./prodlist/ProdList.jsx";
@@ -69,7 +69,7 @@ export default function CartPage({ type = 1 }) {
 
   return (
     <>
-      <View style={{ height: "100%", width: "100%" }}>
+      <>
         <Tab
           value={index}
           onChange={(e) => setIndex(e)}
@@ -92,17 +92,32 @@ export default function CartPage({ type = 1 }) {
           })}
         </Tab>
 
-        <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView
+          animationConfig={{ duration: 200, useNativeDriver: true }}
+          value={index}
+          onChange={setIndex}
+          animationType="spring"
+        >
           {tabViewObjs?.map((tabView, index) => (
             <TabView.Item
               key={index}
-              style={{ width: "100%", height: "100%", paddingTop: 10 }}
+              style={{
+                width: "100%",
+                height: "100%",
+                paddingTop: 10,
+                backgroundColor: "white",
+              }}
+              onMoveShouldSetResponder={
+                (e) => e.stopPropagation()
+                // Platform.OS === "ios" && e.stopPropagation()
+              }
             >
+              {/* <ScrollView>{tabView.combponent}</ScrollView> */}
               {tabView.component}
             </TabView.Item>
           ))}
         </TabView>
-      </View>
+      </>
       <ProdStorage />
     </>
   );

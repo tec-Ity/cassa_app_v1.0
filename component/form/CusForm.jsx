@@ -33,16 +33,19 @@ export default function CusForm({
     },
     []
   );
-
+  console.log(formAlertMsg);
   function handleSubmitSelf(e) {
     e.preventDefault();
+    console.log(1111, formValue);
     const checkResult = formCheck(formInputs, formValue);
     const { allowSubmit, alertMsg, updateFormValue } = checkResult;
     if (allowSubmit === false) {
+      console.log("not allow");
       setShowFormAlert(true);
       setFormAlertMsg(alertMsg || "Form Validation Error, please try again.");
     }
     if (allowSubmit === true) {
+      console.log("allow");
       handleSubmit({ ...formValue, ...updateFormValue });
       setSubmitted(true);
     }
@@ -150,7 +153,7 @@ export default function CusForm({
 
   return (
     <View>
-      <ScrollView style={{ height: 100 }}>
+      <ScrollView style={{ height: "90%" }}>
         {/* {fileInput && (
             <Grid item xs={12}>
               {fileInputMemo}

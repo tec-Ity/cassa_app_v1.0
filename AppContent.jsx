@@ -11,7 +11,7 @@ export default function AppContent() {
   React.useEffect(() => dispatch(getLoginStatusFromStorage()), []);
   const getLoginStatus = useSelector((state) => state.auth.getLoginStatus);
   const location = useLocation();
-  console.log(location);
+  console.log(getLoginStatus, location);
   return getLoginStatus === "succeed" ? (
     <Navigation>
       <Router />

@@ -44,6 +44,7 @@ export default function Navigation({ children }) {
   const curRoute = location?.pathname?.split("/")[2];
   //redirect to default index when change front or back
   React.useEffect(() => {
+    console.log(11111111111, isLogin);
     const { navs } = navi;
     isLogin && navigate(navs.base + navs.defaultLink);
     //navigate change everytime, cannot be a dependecy
@@ -97,7 +98,7 @@ const UI = ({ isLogin, navi, toggleSection, curRoute, children, navigate }) => {
           style: { color: "white", fontSize: 22, fontWeight: "bold" },
         }}
       />
-      <ScrollView>{children}</ScrollView>
+      <View>{children}</View>
     </View>
   );
 };

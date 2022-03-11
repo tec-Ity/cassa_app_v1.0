@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { Text, Input, Icon, Button } from "react-native-elements";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-native";
 import { fetchLogin } from "../../../redux/authSlice";
 
 const iconObj = {
@@ -10,14 +11,18 @@ const iconObj = {
 };
 
 export default function Login() {
+  const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({ code: "", pwd: "" });
   const [visible, setVisible] = useState(0);
   const dispatch = useDispatch();
-
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
   const handleLogin = () => {
     dispatch(fetchLogin(loginInfo));
   };
-
+  React.useEffect(
+    () => loginStatus === "succeed" && navigate("/"),
+    [loginStatus]
+  );
   return (
     <View
       style={{

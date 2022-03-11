@@ -53,6 +53,7 @@ export const removeData = async (key) => {
 
 export const clearAllData = async () => {
   try {
+    console.log("clear");
     await AsyncStorage.clear();
   } catch (e) {
     // clear error

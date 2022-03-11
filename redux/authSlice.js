@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axios_Prom, fetch_Prom } from "../api/api";
-import { getData, storeData } from "./AsyncStorage";
+import { clearAllData, getData, storeData } from "./AsyncStorage";
 const initialState = {
   isLogin: false,
   loginStatus: "idle",
@@ -25,7 +25,6 @@ export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
   async (system, { getState, rejectWithValue }) => {
     const loginRes = await axios_Prom("/login", "POST", { system });
-    // console.log(loginRes);
     if (loginRes.status === 200) {
       await storeData("refreshToken", loginRes.data.refreshToken);
       await storeData("accessToken", loginRes.data.accessToken);
@@ -39,23 +38,18 @@ export const fetchLogin = createAsyncThunk(
   }
 );
 
-// export const fetchLogout = createAsyncThunk(
-//   "auth/fetchLogout",
-//   async (foo = 1, { getState, rejectWithValue }) => {
-//     // const logoutRes = await fetch_Prom("/logout", "DELETE");
-//     // console.log(logoutRes);
-//     // if (logoutRes.status === 200) {
-//     // AsyncStorage.removeItem("refreshToken");
-//     // AsyncStorage.removeItem("accessToken");
-//     AsyncStorage.clear();
-
-//     return {};
-//     // } else {
-//     //   //   alert("faild to post objects", logoutRes.message);
-//     //   return rejectWithValue(logoutRes.message);
-//     // }
-//   }
-// );
+export const fetchLogout = createAsyncThunk(
+  "auth/fetchLogout",
+  async (foo = 1, { getState, rejectWithValue }) => {
+    try {
+      await clearAllData();
+      return true;
+    } catch (e) {
+      console.log(e);
+      return rejectWithValue(e.message);
+    }
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -88,18 +82,18 @@ export const authSlice = createSlice({
       state.getLoginStatus = "error";
       state.errMsg = action.payload;
     },
-    // [fetchLogout.pending]: (state) => {
-    //   state.logoutStatus = "loading";
-    // },
-    // [fetchLogout.fulfilled]: (state, action) => {
-    //   state.logoutStatus = "succeed";
-    //   state.userinfo = {};
-    //   state.isLogin = false;
-    // },
-    // [fetchLogout.rejected]: (state, action) => {
-    //   state.logoutStatus = "error";
-    //   state.errMsg = action.error.message;
-    // },
+    [fetchLogout.pending]: (state) => {
+      state.logoutStatus = "loading";
+    },
+    [fetchLogout.fulfilled]: (state, action) => {
+      state.logoutStatus = "succeed";
+      state.userinfo = {};
+      state.isLogin = false;
+    },
+    [fetchLogout.rejected]: (state, action) => {
+      state.logoutStatus = "error";
+      state.errMsg = action.error.message;
+    },
   },
 });
 

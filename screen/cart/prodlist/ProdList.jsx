@@ -80,7 +80,10 @@ export default function ProdList() {
           /> */}
         <SkusOverlay
           open={showMultiSkuModal}
-          onClose={() => dispatch(openMultiSkuModal({ open: false }))}
+          onClose={() => {
+            console.log(10101);
+            dispatch(openMultiSkuModal({ open: false }));
+          }}
           prod={curMultiSkuProd}
         />
       </>

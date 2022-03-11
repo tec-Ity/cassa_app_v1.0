@@ -4,13 +4,13 @@ import { Button, ListItem, Text } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import ProdControl from "../prodlist/ProdControl";
 import CusClientOverlay from "../../../component/overlay/CusClientOverlay.jsx";
-import { cartClientPost } from "../reducer/cartSlice";
+import { cartClientPost, fetchCartOrderPost } from "../reducer/cartSlice";
 
 export default function CartList({ type }) {
   const dispatch = useDispatch();
   const curCart = useSelector((state) => state.cart.curCart);
   const [showClientOverlay, setShowClientOverlay] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleSelectClient = (subject) => {
     // console.log(subject);
     if (subject) {
@@ -19,6 +19,9 @@ export default function CartList({ type }) {
     }
   };
 
+  const handleOrder = () => {
+    dispatch(fetchCartOrderPost({ type }));
+  };
   return (
     <>
       <View style={{ height: "100%" }}>
@@ -36,12 +39,17 @@ export default function CartList({ type }) {
           <View></View>
         </View>
         <FlatList
+          style={{ borderWidth: 1, borderStyle: "solid", borderColor: "green" }}
           data={curCart?.OrderProds}
           renderItem={({ item }) => <CartItem op={item} />}
           keyExtractor={(item) => item._id}
+          refreshing={isLoading}
+          onRefresh={() => {
+            setIsLoading(true);
+          }}
         />
         <View>
-          <Button title="下单" />
+          <Button title="下单" onPress={handleOrder} />
         </View>
       </View>
       <CusClientOverlay
